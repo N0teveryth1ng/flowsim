@@ -65,4 +65,13 @@ describe('evaluateGraph', () => {
     expect(result.server).toMatchObject({ status: 'DOWN', demandIn: 0 });
     expect(result.database).toMatchObject({ status: 'UNUSED', demandIn: 0 });
   });
+
+  it('validates a rate limiter using its declared throughput', () => {
+    const result = evaluateGraph([
+      { id: 'client', data: { type: 'Client', label: 'Client', throughput: 20_000 } },
+      { id: 'limiter', data: { type: 'RateLimiter', label: 'Rate Limiter', throughput: 10_000 } },
+    ], [edge('client', 'limiter')]);
+
+    expect(result.limiter).toMatchObject({ status: 'FAIL', demandIn: 20_000 });
+  });
 });

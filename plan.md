@@ -17,6 +17,8 @@ We are building **exactly Eraser.io**, for **engineers / system design only**, w
 When you design a pipeline in n8n and something breaks, **that node goes red**. Nothing fancy. Nothing complex.  
 FlowSim does the same for system design: bad numbers / bad topology → **that component goes red** + a short reason.
 
+The canvas is compact and workflow-like: icons, names, ports, and edges belong on the diagram. Configuration belongs in a selected-component inspector, never in oversized canvas cards.
+
 That is the entire product idea.
 
 ---
@@ -77,6 +79,10 @@ We cannot steal Eraser’s proprietary code. We **rebuild the same UX** (open ca
 
 Healthy nodes stay quiet. Fail = red. Fix the design → red goes away. Same as n8n.
 
+### Run analysis
+
+The user may click **Run analysis** to make the current deterministic result explicit. It is not a time simulation and never animates packets. The result marks checked nodes with a green check, failed nodes with a red warning, and shows an issue list with exact reasons. Editing the graph invalidates the prior result until the next analysis run.
+
 ---
 
 ## Node fields (engineer labels only)
@@ -107,6 +113,7 @@ These types participate in evaluation (can be placed via insert library / icons)
 | **Cache** | Hit rate splits demand; FAIL if demand > Throughput |
 | **Load balancer** | Even-split demand across outputs |
 | **Queue** | FAIL if sustained demand > Throughput |
+| **Rate limiter** | FAIL if incoming demand > declared Throughput |
 
 AWS / GCP / Azure icons are **for drawing real architecture**. Simulation attaches when the element is typed (or mapped) as one of the above. Untyped icons = decoration until typed.
 

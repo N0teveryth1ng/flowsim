@@ -1,4 +1,11 @@
-export type NodeType = 'Client' | 'Server' | 'Database' | 'Cache' | 'LoadBalancer' | 'Queue';
+export type NodeType =
+  | 'Client'
+  | 'Server'
+  | 'Database'
+  | 'Cache'
+  | 'LoadBalancer'
+  | 'Queue'
+  | 'RateLimiter';
 
 export interface NodeData extends Record<string, unknown> {
   type: NodeType;
@@ -8,6 +15,8 @@ export interface NodeData extends Record<string, unknown> {
   down?: boolean; // Manual down toggle
   hitRate?: number; // Cache hit rate (0-100)
   n?: number; // Queue capacity (N)
+  provider?: string;
+  icon?: string;
 }
 
 /** A non-simulated canvas note. It is deliberately separate from NodeData. */
